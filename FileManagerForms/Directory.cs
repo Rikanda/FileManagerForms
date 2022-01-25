@@ -17,17 +17,21 @@ namespace FileManagerForms
         public override string Path { get; set; }
         public override Disc RootDisc { get; set; }
         public DirectoryInfo DI { get; set; }
-        public Directory(string name_, int index_, string path_, Disc rd_, DirectoryInfo di_) : base(name_, index_, path_, rd_)
+
+        public Directory ParentDir { get; set; }
+        public Directory(string name_, int index_, string path_, Disc rd_, DirectoryInfo di_, Directory pi_) : base(name_, index_, path_, rd_)
         {
             TypeEntity = Type.Directory;
              DI = di_;
+            ParentDir = pi_;
         }
 
         public void DirectoryIntro() // содержимое директории
         {
             //  Disc root = this; // запоминаем родителя
             //   DirectoryList<Disc> dl = new(root); // создаем объект для заполнения каталогов внутри родителя
-
+            dList.Clear();
+            fList.Clear();
 
             string[] introDirectory = System.IO.Directory.GetDirectories(Name); // получаем список каталогов из системы
 
@@ -40,7 +44,7 @@ namespace FileManagerForms
                 DirectoryInfo di = new DirectoryInfo(str);
                 path_ = System.IO.Directory.GetCurrentDirectory();
                 i = str;
-                Directory d = new Directory(str, n, path_, this.RootDisc, di);
+                Directory d = new Directory(str, n, path_, this.RootDisc, di, this);
                 dList.Add(d);
                 n++;
 
@@ -53,7 +57,7 @@ namespace FileManagerForms
                 FileInfo fi = new FileInfo(str);
                 path_ = str;
                 i = str;
-                File f = new File(str, n, path_, this.RootDisc, fi);
+                File f = new File(str, n, path_, this.RootDisc, fi, this);
                 fList.Add(f);
                 n++;
             }

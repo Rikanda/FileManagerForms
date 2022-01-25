@@ -14,6 +14,8 @@ namespace FileManagerForms
 
         DriveInfo DrI { get; set; }
 
+        
+
         public List<Directory> dList  = new List<Directory>();
         public List<File> fList = new List<File>();
 
@@ -31,7 +33,8 @@ namespace FileManagerForms
         {
           //  Disc root = this; // запоминаем родителя
          //   DirectoryList<Disc> dl = new(root); // создаем объект для заполнения каталогов внутри родителя
-            
+            dList.Clear();
+            fList.Clear();
 
             string[] introDirectory = System.IO.Directory.GetDirectories(Dname); // получаем список каталогов из системы
             
@@ -44,7 +47,7 @@ namespace FileManagerForms
                 DirectoryInfo di = new DirectoryInfo(str);
                 path_ = System.IO.Directory.GetCurrentDirectory();
                 i = str;
-                Directory d = new Directory(str, n, path_, this, di);
+                Directory d = new Directory(str, n, path_, this, di, null);
                 dList.Add(d);
                 n++;
                 
@@ -57,7 +60,7 @@ namespace FileManagerForms
                 FileInfo fi = new FileInfo(str);
                 path_ = str;
                 i= str;
-                File f = new File(str, n, path_, this, fi);
+                File f = new File(str, n, path_, this, fi, null);
                 fList.Add(f);
                 n++;
             }

@@ -14,13 +14,16 @@ namespace FileManagerForms
         public override string Path { get; set; }
         public override Disc RootDisc { get; set; }
         public FileInfo FI { get; set; }
-        public File(string name_, int index_, string path_, Disc rd_, FileInfo fi_) : base(name_, index_, path_, rd_)
+
+        public Directory ParenthDir { get; set; }
+        public File(string name_, int index_, string path_, Disc rd_, FileInfo fi_, Directory pd_) : base(name_, index_, path_, rd_)
         {
             TypeEntity = Type.File;
             FI = fi_;
+            ParenthDir = pd_;
         }
 
-
+       
 
         public void Copy(Disc d, string path)
         {
