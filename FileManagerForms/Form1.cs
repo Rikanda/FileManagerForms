@@ -2,6 +2,7 @@ namespace FileManagerForms
 {
     public partial class Form1 : Form
     {
+        
         public Form1()
         {
             InitializeComponent();
@@ -12,9 +13,9 @@ namespace FileManagerForms
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
             DiscList d = new DiscList();
-           
+
+
             comboBox1.DataSource = d.list;
             comboBox1.DisplayMember = "Dname";
             comboBox1.SelectedIndex = 0;
@@ -209,6 +210,25 @@ namespace FileManagerForms
                 UpdateDirectory(dd);
             }
                 
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            
+           
+            Form2 newForm = new Form2(this);
+            newForm.label2.Text = textBox1.Text;
+            newForm.Show();
+
+            
+
+
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -7,10 +7,12 @@ using System.IO;
 
 namespace FileManagerForms
 {
-    internal class DiscList
+    public class DiscList
     {
         
-            public List<Disc> list { get; set; }
+            public  List<Disc> list { get; set; }
+
+            public List<File> ffiles { get; set; } = new List<File>(); // список найденных файлов
 
             public DiscList()
             {
@@ -29,19 +31,65 @@ namespace FileManagerForms
                 }
 
             }
-
-
-            public void prntDirectory(int index)
+            
+        
+        public void Find (string name) // метод поиска
+        {
+            foreach(Disc d in list) // обход дисков
             {
-                foreach (Disc d in list)
+                d.DiscIntro(); // состав диска
+                add_file(d.fList, name); //вызов поиска файла в списке
+                check_dir(d.dList, name); // вызов проверки директории
+                
+            }
+
+        }
+
+        public void add_file(List<File> lf, string name) // поиск файла с совпадающим именем
+        {
+            foreach (File f in lf)
+            {
+                string s = Path.GetFileNameWithoutExtension(f.Name); // название файла
+                int ind = s.IndexOf(name); // поиск по подстроке
+
+                if (ind!=-1) // если что-то найдено
                 {
-                    if (d.Dindex == index)
-                    {
-                        d.DiscIntro();
-                        break;
-                    }
+                    ffiles.Add(f); // добавляем найденный файл в список для отображения
+
                 }
             }
+
+        }
+
+        public void check_dir(List<Directory> ld, string name) // проверка директории
+        {
+            foreach (Directory dir in ld)  // обход директорий в списке директории
+            {
+          //      Q.Enqueue(dir); // добавление в очередь на обработку
+           //     if (Q.Count > 0) // если очередь не пустая
+           //     {
+           //         Directory n = Q.Dequeue(); // берем элемент из очереди
+                    dir.DirectoryIntro(); // формирование содержимого директории
+                    add_file(dir.fList, name); // поиск файла в директории
+
+                    check_dir(dir.dList, name); // вызов обработки подкаталогов
+              //  }
+              //  else return;
+            }
+
+
+        }
+        //    public void prntDirectory(int index)
+        //    {
+        //        foreach (Disc d in list)
+        //        {
+        //            if (d.Dindex == index)
+        //            {
+        //                d.DiscIntro();
+        //                break;
+        //            }
+        //        }
+        //    }
         }
     
 }

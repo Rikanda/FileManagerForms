@@ -10,6 +10,7 @@ namespace FileManagerForms
     {
         public List<Directory> dList = new List<Directory>(); // список входящих в каталог каталогов
         public List<File> fList = new List<File>();// список входящих в каталог файлов
+        public List<File> find_files_list = new List<File>(); // список найденных файлов
 
         public override string Name { get; set; }
         public override int Index { get; set; }
@@ -32,37 +33,58 @@ namespace FileManagerForms
             //   DirectoryList<Disc> dl = new(root); // создаем объект для заполнения каталогов внутри родителя
             dList.Clear();
             fList.Clear();
-
-            string[] introDirectory = System.IO.Directory.GetDirectories(Name); // получаем список каталогов из системы
-
-
             string i;
             string path_;
             int n = 0;
-            foreach (var str in introDirectory)
+            try
             {
-                DirectoryInfo di = new DirectoryInfo(str);
-                path_ = System.IO.Directory.GetCurrentDirectory();
-                i = str;
-                Directory d = new Directory(str, n, path_, this.RootDisc, di, this);
-                dList.Add(d);
-                n++;
+                string[] introDirectory = System.IO.Directory.GetDirectories(Name); // получаем список каталогов из системы
 
+
+                
+                foreach (var str in introDirectory) // создание списка каталогов
+                {
+                    DirectoryInfo di = new DirectoryInfo(str);
+                    path_ = System.IO.Directory.GetCurrentDirectory();
+                    i = str;
+                    Directory d = new Directory(str, n, path_, this.RootDisc, di, this);
+                    dList.Add(d);
+                    n++;
+
+                }
             }
+            catch { }
 
             n = 0;
-            string[] introFile = System.IO.Directory.GetFiles(Name);
-            foreach (var str in introFile)
+
+            try
             {
-                FileInfo fi = new FileInfo(str);
-                path_ = str;
-                i = str;
-                File f = new File(str, n, path_, this.RootDisc, fi, this);
-                fList.Add(f);
-                n++;
+                string[] introFile = System.IO.Directory.GetFiles(Name);
+                foreach (var str in introFile) // создание списка файлов
+                {
+                    FileInfo fi = new FileInfo(str);
+                    path_ = str;
+                    i = str;
+                    File f = new File(str, n, path_, this.RootDisc, fi, this);
+                    fList.Add(f);
+                    n++;
+                }
             }
+            catch { }
+            
         }
 
+        public void Find_file(string find_name)
+        {
+            foreach (File f in fList)
+            {
+                if (f.Name == find_name)
+                {
+                    find_files_list.Add(f);
+                }
+
+            }
+        }
 
             public void Copy(Disc d, string path)
         {
