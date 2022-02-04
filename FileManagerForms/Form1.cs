@@ -214,11 +214,20 @@ namespace FileManagerForms
 
         private void button1_Click_1(object sender, EventArgs e)
         {
+           // button1.Enabled = false;
             
-           
-            Form2 newForm = new Form2(this);
-            newForm.label2.Text = textBox1.Text;
-            newForm.Show();
+            Form3 taskForm = new Form3(this);
+            taskForm.label2.Text = textBox1.Text;
+            taskForm.Show();
+                   
+            
+            // this.BackColor = SystemColors.Control;
+          // button1.Enabled = true;
+            
+            
+
+
+            
 
             
 

@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Threading;
 
 namespace FileManagerForms
 {
     public class DiscList
     {
         
-            public  List<Disc> list { get; set; }
+            public  List<Disc> list { get; set; } = new List<Disc>();
 
             public List<File> ffiles { get; set; } = new List<File>(); // список найденных файлов
 
@@ -33,7 +34,7 @@ namespace FileManagerForms
             }
             
         
-        public void Find (string name) // метод поиска
+        internal void Find (string name) // метод поиска
         {
             foreach(Disc d in list) // обход дисков
             {

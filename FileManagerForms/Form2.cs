@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
+
 
 namespace FileManagerForms
 {
@@ -17,22 +19,23 @@ namespace FileManagerForms
             InitializeComponent();
         }
 
-        public Form2(Form1 f)
+        public Form2(Form3 f)
         {
             InitializeComponent();
            
+            
 
-
-            f.BackColor = Color.Yellow;
+           
 
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            DiscList d = new DiscList();
-            d.Find(label2.Text);
-            listBox1.DataSource = d.ffiles;
-            listBox1.DisplayMember = "Name";
+
+           // this.BackColor = Color.Yellow;
+            
+            
+
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
